@@ -1,0 +1,28 @@
+{
+  "name": "personal-task-tracker-core",
+  "version": "1.0.0",
+  "description": "Shared types, validation, and constants for Personal Task Tracker",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "clean": "rm -rf dist"
+  },
+  "keywords": ["task-tracker", "shared", "types"],
+  "author": "nurulizyansyaza",
+  "license": "MIT",
+  "type": "commonjs",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
