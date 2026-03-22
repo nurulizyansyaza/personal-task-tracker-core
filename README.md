@@ -2,6 +2,20 @@
 
 Shared TypeScript package containing types, enums, validation logic, and constants used by both the API and Frontend.
 
+## How It Fits
+
+```mermaid
+graph TD
+    CORE["personal-task-tracker-core<br/>(Types, Validation, Constants)"]
+    API["personal-task-tracker-api<br/>(NestJS Backend)"]
+    FE["personal-task-tracker-frontend<br/>(Next.js Frontend)"]
+
+    CORE -->|"file: dependency"| API
+    CORE -->|"file: dependency"| FE
+```
+
+Both API and Frontend consume this package via `"file:../personal-task-tracker-core"` in their `package.json`. During Docker builds, the core is copied into the build context and the symlink is replaced with a real copy.
+
 ## Installation
 
 ```bash
