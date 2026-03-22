@@ -672,8 +672,10 @@ npm run test:cov
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) ≥ 18
-- npm ≥ 9
+| Tool | Version | How to check | How to install |
+|------|---------|-------------|----------------|
+| Node.js | >= 18 | `node -v` | [nodejs.org](https://nodejs.org/) |
+| npm | >= 9 | `npm -v` | Included with Node.js |
 
 ### Setup
 
@@ -733,9 +735,9 @@ This diagram shows how the Core package fits into the overall project:
 
 ```mermaid
 graph TD
- CORE[" personal-task-tracker-core"]
- API[" personal-task-tracker-api<br/>(NestJS Backend)"]
- FE[" personal-task-tracker-frontend<br/>(Next.js Frontend)"]
+ CORE["personal-task-tracker-core"]
+ API["personal-task-tracker-api<br/>(NestJS Backend)"]
+ FE["personal-task-tracker-frontend<br/>(Next.js Frontend)"]
  DB[(PostgreSQL)]
  USER((User))
 
@@ -776,3 +778,14 @@ graph TD
 5. **Open a pull request** with a clear description of what changed and why
 
 > **Tip:** Since both the API and Frontend depend on this package, changes here can affect the entire project. Always run the test suites of dependent packages after making changes to Core.
+
+---
+
+## Related Repositories
+
+| Repo | Description | Tests |
+|------|-------------|-------|
+| [personal-task-tracker](https://github.com/nurulizyansyaza/personal-task-tracker) | Orchestration — CI/CD, Docker, AWS infra | — |
+| [personal-task-tracker-core](https://github.com/nurulizyansyaza/personal-task-tracker-core) | Shared TypeScript library — types, validation, errors | 42 |
+| [personal-task-tracker-api](https://github.com/nurulizyansyaza/personal-task-tracker-api) | NestJS REST API with security middleware | 84 |
+| [personal-task-tracker-frontend](https://github.com/nurulizyansyaza/personal-task-tracker-frontend) | Next.js Kanban dashboard | 52 |
