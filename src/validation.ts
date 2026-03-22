@@ -2,48 +2,51 @@ import {
   TaskStatus,
   CreateTaskDTO,
   UpdateTaskDTO,
+} from './types';
+
+import {
   TASK_TITLE_MIN_LENGTH,
   TASK_TITLE_MAX_LENGTH,
   TASK_DESCRIPTION_MAX_LENGTH,
-} from './index';
+} from './constants';
+
+import { ErrorCode, AppError, createAppError } from './errors';
 
 export interface ValidationResult {
   valid: boolean;
-  errors: string[];
+  errors: AppError[];
 }
 
 export function validateCreateTask(dto: CreateTaskDTO): ValidationResult {
-  const errors: string[] = [];
+  const errors: AppError[] = [];
 
   if (!dto.title || dto.title.trim().length < TASK_TITLE_MIN_LENGTH) {
-    errors.push('Title is required and cannot be empty');
+    errors.push(createAppError(ErrorCode.TITLE_REQUIRED, 'title'));
   }
 
   if (dto.title && dto.title.trim().length > TASK_TITLE_MAX_LENGTH) {
-    errors.push(`Title must not exceed ${TASK_TITLE_MAX_LENGTH} characters`);
+    errors.push(createAppError(ErrorCode.TITLE_TOO_LONG, 'title'));
   }
 
   if (
     dto.description &&
     dto.description.length > TASK_DESCRIPTION_MAX_LENGTH
   ) {
-    errors.push(
-      `Description must not exceed ${TASK_DESCRIPTION_MAX_LENGTH} characters`,
-    );
+    errors.push(createAppError(ErrorCode.DESCRIPTION_TOO_LONG, 'description'));
   }
 
   return { valid: errors.length === 0, errors };
 }
 
 export function validateUpdateTask(dto: UpdateTaskDTO): ValidationResult {
-  const errors: string[] = [];
+  const errors: AppError[] = [];
 
   if (dto.title !== undefined) {
     if (!dto.title || dto.title.trim().length < TASK_TITLE_MIN_LENGTH) {
-      errors.push('Title cannot be empty');
+      errors.push(createAppError(ErrorCode.TITLE_REQUIRED, 'title'));
     }
     if (dto.title && dto.title.trim().length > TASK_TITLE_MAX_LENGTH) {
-      errors.push(`Title must not exceed ${TASK_TITLE_MAX_LENGTH} characters`);
+      errors.push(createAppError(ErrorCode.TITLE_TOO_LONG, 'title'));
     }
   }
 
@@ -52,16 +55,12 @@ export function validateUpdateTask(dto: UpdateTaskDTO): ValidationResult {
     dto.description !== null &&
     dto.description.length > TASK_DESCRIPTION_MAX_LENGTH
   ) {
-    errors.push(
-      `Description must not exceed ${TASK_DESCRIPTION_MAX_LENGTH} characters`,
-    );
+    errors.push(createAppError(ErrorCode.DESCRIPTION_TOO_LONG, 'description'));
   }
 
   if (dto.status !== undefined) {
     if (!Object.values(TaskStatus).includes(dto.status)) {
-      errors.push(
-        `Invalid status. Must be one of: ${Object.values(TaskStatus).join(', ')}`,
-      );
+      errors.push(createAppError(ErrorCode.INVALID_STATUS, 'status'));
     }
   }
 
