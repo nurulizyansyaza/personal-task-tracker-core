@@ -1,7 +1,7 @@
 # Personal Task Tracker — Core
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?logo=typescript&logoColor=white)
-![Jest](https://img.shields.io/badge/Tests-42%20passing-brightgreen?logo=jest&logoColor=white)
+![Jest](https://img.shields.io/badge/Tests-41%20passing-brightgreen?logo=jest&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 ![Node](https://img.shields.io/badge/Node-%E2%89%A518-green?logo=node.js&logoColor=white)
 
@@ -71,7 +71,6 @@ import {
  validateCreateTask,
  isValidTaskStatus,
  // Constants
- API_ROUTES,
  TASK_TITLE_MAX_LENGTH,
  // Errors
  ErrorCode,
@@ -101,10 +100,7 @@ if (isValidTaskStatus('IN_PROGRESS')) {
  console.log('That is a valid status!');
 }
 
-// 3. Build an API URL
-const taskUrl = API_ROUTES.TASK_BY_ID(42); // "/tasks/42"
-
-// 4. Get a user-friendly error message
+// 3. Get a user-friendly error message
 const msg = getErrorMessage(ErrorCode.TITLE_REQUIRED);
 // → "Every task needs a title. Please add one."
 ```
@@ -202,65 +198,6 @@ const rename: UpdateTaskDTO = {
 
 ---
 
-#### `TaskFilterParams`
-
-Query parameters for filtering tasks in list endpoints.
-
-```typescript
-interface TaskFilterParams {
- status?: TaskStatus;
-}
-```
-
-**Example:**
-
-```typescript
-// Filter to only show in-progress tasks
-const filters: TaskFilterParams = { status: TaskStatus.IN_PROGRESS };
-
-// No filter — show all tasks
-const noFilter: TaskFilterParams = {};
-```
-
----
-
-#### `ApiResponse<T>`
-
-Standard wrapper for successful API responses. The `T` generic is the type of data returned.
-
-```typescript
-interface ApiResponse<T> {
- success: boolean;
- data: T;
- message?: string;
-}
-```
-
-**Example:**
-
-```typescript
-// A successful response containing a single task
-const response: ApiResponse<Task> = {
- success: true,
- data: {
- id: 1,
- title: 'Buy groceries',
- description: null,
- status: TaskStatus.TODO,
- created_at: new Date(),
- },
-};
-
-// A successful response containing a list of tasks
-const listResponse: ApiResponse<Task[]> = {
- success: true,
- data: [/* ...tasks */],
- message: 'Found 5 tasks',
-};
-```
-
----
-
 ### Constants
 
 #### `TaskStatus` (enum)
@@ -290,29 +227,6 @@ Object.values(TaskStatus).forEach((s) => console.log(s));
 ```
 
 ---
-
-#### `API_ROUTES`
-
-Centralized API endpoint paths. Use these instead of hardcoding URL strings.
-
-```typescript
-const API_ROUTES = {
- TASKS: '/tasks', // List / create tasks
- TASK_BY_ID: (id: number) => `/tasks/${id}`, // Get / update / delete a task
-} as const;
-```
-
-**Example:**
-
-```typescript
-import { API_ROUTES } from 'personal-task-tracker-core';
-
-// Fetch all tasks
-fetch(API_ROUTES.TASKS);
-
-// Fetch task #42
-fetch(API_ROUTES.TASK_BY_ID(42)); // "/tasks/42"
-```
 
 ---
 
@@ -636,7 +550,7 @@ if (isApiErrorResponse(data)) {
 
 ## Testing
 
-The package has **42 tests** covering all modules. Tests are written with [Jest](https://jestjs.io/) and [ts-jest](https://kulshekhar.github.io/ts-jest/).
+The package has **41 tests** covering all modules. Tests are written with [Jest](https://jestjs.io/) and [ts-jest](https://kulshekhar.github.io/ts-jest/).
 
 ### Run all tests
 
@@ -664,7 +578,7 @@ npm run test:cov
 | --------------------------- | ----- | ------------------------------------------------------ |
 | `tests/errors.test.ts` | 20 | ErrorCode enum, ERROR_MESSAGES, createAppError, getErrorMessage, isApiErrorResponse |
 | `tests/validation.test.ts` | 16 | validateCreateTask, validateUpdateTask, isValidTaskStatus |
-| `tests/constants.test.ts` | 6 | Field length limits, API_ROUTES |
+| `tests/constants.test.ts` | 5 | Field length limits |
 
 ---
 
@@ -695,7 +609,7 @@ npm run build
 | Script | Command | Description |
 | ------------------ | ------------------- | ---------------------------------------------- |
 | `npm run build` | `tsc` | Compile TypeScript to `dist/` |
-| `npm test` | `jest` | Run all 42 tests |
+| `npm test` | `jest` | Run all 41 tests |
 | `npm run test:watch` | `jest --watch` | Re-run tests on file changes |
 | `npm run test:cov` | `jest --coverage` | Run tests and generate coverage report |
 | `npm run clean` | `rm -rf dist` | Delete compiled output |
@@ -707,11 +621,11 @@ personal-task-tracker-core/
 ├── src/
 │ ├── index.ts # Barrel export — re-exports everything
 │ ├── types.ts # Task, CreateTaskDTO, UpdateTaskDTO, etc.
-│ ├── constants.ts # TaskStatus enum, API_ROUTES, length limits
+│ ├── constants.ts # Field length limits
 │ ├── validation.ts # validateCreateTask, validateUpdateTask, isValidTaskStatus
 │ └── errors.ts # ErrorCode, AppError, helper functions
 ├── tests/
-│ ├── constants.test.ts # 6 tests
+│ ├── constants.test.ts # 5 tests
 │ ├── errors.test.ts # 20 tests
 │ └── validation.test.ts# 16 tests
 ├── dist/ # Compiled output (auto-generated, git-ignored)
@@ -786,6 +700,6 @@ graph TD
 | Repo | Description | Tests |
 |------|-------------|-------|
 | [personal-task-tracker](https://github.com/nurulizyansyaza/personal-task-tracker) | Orchestration — CI/CD, Docker, AWS infra | — |
-| [personal-task-tracker-core](https://github.com/nurulizyansyaza/personal-task-tracker-core) | Shared TypeScript library — types, validation, errors | 42 |
+| [personal-task-tracker-core](https://github.com/nurulizyansyaza/personal-task-tracker-core) | Shared TypeScript library — types, validation, errors | 41 |
 | [personal-task-tracker-api](https://github.com/nurulizyansyaza/personal-task-tracker-api) | NestJS REST API with security middleware | 84 |
 | [personal-task-tracker-frontend](https://github.com/nurulizyansyaza/personal-task-tracker-frontend) | Next.js Kanban dashboard | 52 |

@@ -17,24 +17,27 @@ export interface ValidationResult {
   errors: AppError[];
 }
 
-export function validateCreateTask(dto: CreateTaskDTO): ValidationResult {
-  const errors: AppError[] = [];
-
-  if (!dto.title || dto.title.trim().length < TASK_TITLE_MIN_LENGTH) {
+function validateTitle(title: string | undefined, errors: AppError[]): void {
+  if (!title || title.trim().length < TASK_TITLE_MIN_LENGTH) {
     errors.push(createAppError(ErrorCode.TITLE_REQUIRED, 'title'));
-  }
-
-  if (dto.title && dto.title.trim().length > TASK_TITLE_MAX_LENGTH) {
+  } else if (title.trim().length > TASK_TITLE_MAX_LENGTH) {
     errors.push(createAppError(ErrorCode.TITLE_TOO_LONG, 'title'));
   }
+}
 
-  if (
-    dto.description &&
-    dto.description.length > TASK_DESCRIPTION_MAX_LENGTH
-  ) {
+function validateDescription(
+  description: string | null | undefined,
+  errors: AppError[],
+): void {
+  if (description && description.length > TASK_DESCRIPTION_MAX_LENGTH) {
     errors.push(createAppError(ErrorCode.DESCRIPTION_TOO_LONG, 'description'));
   }
+}
 
+export function validateCreateTask(dto: CreateTaskDTO): ValidationResult {
+  const errors: AppError[] = [];
+  validateTitle(dto.title, errors);
+  validateDescription(dto.description, errors);
   return { valid: errors.length === 0, errors };
 }
 
@@ -42,20 +45,11 @@ export function validateUpdateTask(dto: UpdateTaskDTO): ValidationResult {
   const errors: AppError[] = [];
 
   if (dto.title !== undefined) {
-    if (!dto.title || dto.title.trim().length < TASK_TITLE_MIN_LENGTH) {
-      errors.push(createAppError(ErrorCode.TITLE_REQUIRED, 'title'));
-    }
-    if (dto.title && dto.title.trim().length > TASK_TITLE_MAX_LENGTH) {
-      errors.push(createAppError(ErrorCode.TITLE_TOO_LONG, 'title'));
-    }
+    validateTitle(dto.title, errors);
   }
 
-  if (
-    dto.description !== undefined &&
-    dto.description !== null &&
-    dto.description.length > TASK_DESCRIPTION_MAX_LENGTH
-  ) {
-    errors.push(createAppError(ErrorCode.DESCRIPTION_TOO_LONG, 'description'));
+  if (dto.description !== undefined && dto.description !== null) {
+    validateDescription(dto.description, errors);
   }
 
   if (dto.status !== undefined) {

@@ -2,7 +2,6 @@ import {
   TASK_TITLE_MIN_LENGTH,
   TASK_TITLE_MAX_LENGTH,
   TASK_DESCRIPTION_MAX_LENGTH,
-  API_ROUTES,
 } from '../src/constants';
 
 describe('constants', () => {
@@ -25,14 +24,6 @@ describe('constants', () => {
     it('should have reasonable limits', () => {
       expect(TASK_TITLE_MAX_LENGTH).toBeLessThanOrEqual(500);
       expect(TASK_DESCRIPTION_MAX_LENGTH).toBeLessThanOrEqual(10000);
-    });
-  });
-
-  describe('API_ROUTES', () => {
-    it('should define TASKS route', () => {
-      expect(API_ROUTES.TASKS).toBeDefined();
-      expect(typeof API_ROUTES.TASKS).toBe('string');
-      expect(API_ROUTES.TASKS).toMatch(/^\/?\w/);
     });
   });
 });

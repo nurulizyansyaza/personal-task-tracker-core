@@ -22,13 +22,3 @@ export interface UpdateTaskDTO {
   description?: string | null;
   status?: TaskStatus;
 }
-
-export interface TaskFilterParams {
-  status?: TaskStatus;
-}
-
-export interface ApiResponse<T> {
-  success: boolean;
-  data: T;
-  message?: string;
-}
