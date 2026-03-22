@@ -652,7 +652,7 @@ graph TD
  CORE["personal-task-tracker-core"]
  API["personal-task-tracker-api<br/>(NestJS Backend)"]
  FE["personal-task-tracker-frontend<br/>(Next.js Frontend)"]
- DB[(PostgreSQL)]
+ DB[(MariaDB 10.11)]
  USER((User))
 
  CORE -->|"Types, Validation<br/>Constants, Errors"| API
@@ -701,5 +701,5 @@ graph TD
 |------|-------------|-------|
 | [personal-task-tracker](https://github.com/nurulizyansyaza/personal-task-tracker) | Orchestration — CI/CD, Docker, AWS infra | — |
 | [personal-task-tracker-core](https://github.com/nurulizyansyaza/personal-task-tracker-core) | Shared TypeScript library — types, validation, errors | 41 |
-| [personal-task-tracker-api](https://github.com/nurulizyansyaza/personal-task-tracker-api) | NestJS REST API with security middleware | 84 |
-| [personal-task-tracker-frontend](https://github.com/nurulizyansyaza/personal-task-tracker-frontend) | Next.js Kanban dashboard | 52 |
+| [personal-task-tracker-api](https://github.com/nurulizyansyaza/personal-task-tracker-api) | NestJS REST API with security middleware | 74 |
+| [personal-task-tracker-frontend](https://github.com/nurulizyansyaza/personal-task-tracker-frontend) | Next.js Kanban dashboard | 94 |
